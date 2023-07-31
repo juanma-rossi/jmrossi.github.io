@@ -1,14 +1,8 @@
 ---
 title: "Alerta Sismicas"
-excerpt: "Trabajo final grupal de SoyHenry<br/><img src="https://i.ibb.co/7RPfjpk/Banner-para-Linkedin-Licenciada-Marketing-Minimalista-Beige-1.png">"
+excerpt: "Creación de un Sistema de Alertas Sísmicas<br/><img src="https://i.ibb.co/7RPfjpk/Banner-para-Linkedin-Licenciada-Marketing-Minimalista-Beige-1.png">"
 collection: portfolio
 ---
-
-<p align="right"><img src="https://i.ibb.co/7RPfjpk/Banner-para-Linkedin-Licenciada-Marketing-Minimalista-Beige-1.png"></p>
-
-<h1 align="center">
-  :large_blue_circle: Proyecto "Creación de un Sistema de Alertas Sísmicas"
-</h1>
 
 https://github.com/juanma-rossi/Alerta-sismica
 
