@@ -1,7 +1,15 @@
 ---
-title: "Portfolio item number 1"
-excerpt: "Short description of portfolio item number 1<br/><img src='/images/500x300.png'>"
+title: "Alerta Sismicas"
+excerpt: "Trabajo final grupal de SoyHenry<br/><img src="https://i.ibb.co/7RPfjpk/Banner-para-Linkedin-Licenciada-Marketing-Minimalista-Beige-1.png">"
 collection: portfolio
 ---
 
-This is an item in your portfolio. It can be have images or nice text. If you name the file .md, it will be parsed as markdown. If you name the file .html, it will be parsed as HTML. 
+<p align="right"><img src="https://i.ibb.co/7RPfjpk/Banner-para-Linkedin-Licenciada-Marketing-Minimalista-Beige-1.png"></p>
+
+<h1 align="center">
+  :large_blue_circle: Proyecto "Creación de un Sistema de Alertas Sísmicas"
+</h1>
+
+https://github.com/juanma-rossi/Alerta-sismica
+
+El presente proyecto llevado adelante por la empresa *"Analitic World"* se orienta a la *"Creación de un Sistema de Alertas Sísmicas"* que nace como parte de un proyecto mayor denominado  ***“Working towards global standardization of seismological networks and effective communication to the civilian community”***. El mismo surge del trabajo mancumunado entre el *Servicio Geológico de Estados Unidos* **USGS**, la *Agencia Meteorológica de Japón* **JMA** y el *Servicio Sismológico Nacional" de México **SSN** a fin de promover la normalización de las redes sísmicas a nivel mundial  y la comunicación eficaz a la sociedad de los eventos sísmicos.
