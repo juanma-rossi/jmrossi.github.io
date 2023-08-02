@@ -20,7 +20,7 @@ redirect_from:
 # Selected Experience
 
 ## 📜 Senior Computer Hardware Technician 
-I have experience worging on [Compra Gamer](https://compragamer.com/) a large company in the field of Computer Hardware.
+I have experience working on [Compra Gamer](https://compragamer.com/) a large Argentinian company in the field of Computer Hardware.
 
 ## 👨🏻‍🔬 Professional Experience
 Additionally, i have a data science journey, i embarked on a self-directed exploration of the captivating realms of Machine Learning and Artificial Intelligence. Dived into a plethora of online courses, tutorials, and research papers, laying the groundwork for my expertise.
