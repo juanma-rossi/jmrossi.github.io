@@ -1,5 +1,5 @@
 ---
-title: "Alerta Sismicas"
+title: "Alertas Sísmicas"
 excerpt: "Creación de un Sistema de Alertas Sísmicas<br/><img src='https://i.ibb.co/7RPfjpk/Banner-para-Linkedin-Licenciada-Marketing-Minimalista-Beige-1.png'>"
 collection: portfolio
 ---
