@@ -1,6 +1,6 @@
 ---
 title: "Alertas Sísmicas"
-excerpt: "Creación de un Sistema de Alertas Sísmicas<br/><img src='https://img.freepik.com/vector-premium/concepto-abstracto-sismologia_335657-4434.jpg?w=1060'>"
+excerpt: "Creación de un Sistema de Alertas Sísmicas<br/><img src='https://i.ytimg.com/vi/bWSLT1NS0II/maxresdefault.jpg'>"
 collection: portfolio
 ---
 
