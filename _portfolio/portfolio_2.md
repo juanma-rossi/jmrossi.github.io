@@ -1,6 +1,6 @@
 ---
 title: "Aplicación de Alertas Sísmicas"
-excerpt: "Clasificación en tiempo real de los tipos de sismos por país<br/><img src='https://ibb.co/XbNDY1H'>"
+excerpt: "Clasificación en tiempo real de los tipos de sismos por país<br/><img src='https://i.ibb.co/Tkp1W6y/Alerta-Sismica.jpg'>"
 collection: portfolio
 ---
 *"Proyecto ETL y Aprendizaje Automático"*
