@@ -1,6 +1,6 @@
 ---
 title: "Aplicación de Alertas Sísmicas"
-excerpt: "Clasificación en tiempo real de los tipos de sismos por país<br/><img src='https://i0.wp.com/serendipia.digital/wp-content/uploads/2023/01/Sistema-de-Alerta-Si%CC%81smica-Mexicano-1.png?fit=1920%2C1080&ssl=1'>"
+excerpt: "Clasificación en tiempo real de los tipos de sismos por país<br/><img src='/images/Alerta Sismica.jpg'>"
 collection: portfolio
 ---
 *"Proyecto ETL y Aprendizaje Automático"*
