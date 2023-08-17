@@ -2,7 +2,7 @@
 main:
   - title: "CV"
     #url: /cv/
-    url: /files/Juan Manuel Rossi - Data Engineer cv 1.pdf
+    url: /files/Juan Manuel Rossi - Data cv.pdf
   
   - title: "Portfolio"
     url: /portfolio/   
