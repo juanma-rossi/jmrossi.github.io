@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-page-title-key="title.404">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 — Page Not Found | Juan Manuel Rossi</title>
+  <meta name="description" content="Page not found on Juan Manuel Rossi's portfolio.">
+  <link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('jmr-theme');
+        if (t === 'dark' || (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        var l = localStorage.getItem('jmr-lang');
+        if (l === 'es') document.documentElement.setAttribute('lang', 'es');
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-mark" aria-hidden="true">JR</span>
+        <span>Juan Manuel Rossi</span>
+      </a>
+      <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Select language" data-i18n-aria="lang.aria">
+          <button type="button" class="lang-option" data-lang-btn="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-option" data-lang-btn="es" aria-pressed="false">ES</button>
+        </div>
+        <button id="theme-toggle" class="control-btn" type="button" aria-pressed="false" aria-label="Toggle light or dark color theme" data-i18n-aria="theme.aria">
+          <span>Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container notfound-wrap">
+    <div class="card notfound-card">
+      <div class="notfound-code">404</div>
+      <h1 data-i18n="nf.title">Page not found</h1>
+      <p data-i18n="nf.desc">The page you requested may have moved during the 2027 portfolio upgrade. You can jump straight back to the main portfolio or my interactive Cars Intelligence 2025 case study.</p>
+      <div class="hero-cta-row" style="justify-content: center; margin-top: 22px; margin-bottom: 0;">
+        <a class="btn btn-primary" href="./index.html" data-i18n="nf.home">Back to Portfolio</a>
+        <a class="btn" href="./projects/cars-intelligence-2025/index.html" data-i18n="nf.cars">View Cars Intelligence 2025</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="./assets/js/i18n.js"></script>
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
