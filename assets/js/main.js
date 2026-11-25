@@ -1,7 +1,9 @@
 /* ==========================================================================
    Main Interactive Behavior — Juan Manuel Rossi 2027 Portfolio
-   Theme toggle, bilingual EN/ES switch, mobile nav drawer, filters,
-   copy-email feedback, and native <dialog> screenshot lightbox.
+   System-first theme (prefers-color-scheme) + persistent manual override,
+   bilingual EN/ES switch, scroll progress hairline, active nav tracking,
+   progressive scroll reveals, mobile drawer, project filters, copy email,
+   and native <dialog> screenshot lightbox.
    ========================================================================== */
 (function () {
   "use strict";
@@ -9,6 +11,10 @@
   const THEME_KEY = "jmr-theme";
   const LANG_KEY = "jmr-lang";
   const root = document.documentElement;
+  const darkMql = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  const reducedMotionMql = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)")
+    : null;
 
   const SUN_SVG =
     '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
@@ -37,14 +43,24 @@
     return root.getAttribute("lang") === "es" ? "es" : "en";
   }
 
-  function getCurrentTheme() {
-    return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  function getSavedTheme() {
+    try {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === "dark" || saved === "light") return saved;
+    } catch (e) {}
+    return null;
+  }
+
+  function getEffectiveTheme() {
+    const saved = getSavedTheme();
+    if (saved) return saved;
+    return darkMql && darkMql.matches ? "dark" : "light";
   }
 
   function updateThemeButton() {
     const btn = document.getElementById("theme-toggle");
     if (!btn) return;
-    const isDark = getCurrentTheme() === "dark";
+    const isDark = getEffectiveTheme() === "dark";
     const dict = getDict(getCurrentLang());
     const label = isDark ? dict["theme.toLight"] || "Light" : dict["theme.toDark"] || "Dark";
     btn.setAttribute("aria-pressed", isDark ? "true" : "false");
@@ -52,19 +68,19 @@
     btn.innerHTML = (isDark ? SUN_SVG : MOON_SVG) + "<span>" + label + "</span>";
   }
 
-  function applyTheme(theme) {
-    if (theme === "dark") {
-      root.setAttribute("data-theme", "dark");
+  function applyTheme(theme, persist) {
+    if (persist) {
+      root.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+      try {
+        localStorage.setItem(THEME_KEY, theme === "dark" ? "dark" : "light");
+      } catch (e) {}
     } else {
       root.removeAttribute("data-theme");
     }
-    try {
-      localStorage.setItem(THEME_KEY, theme);
-    } catch (e) {}
     updateThemeButton();
   }
 
-  function applyLang(lang) {
+  function applyLang(lang, persist) {
     const target = lang === "es" ? "es" : "en";
     const dict = getDict(target);
     root.setAttribute("lang", target);
@@ -93,43 +109,160 @@
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
 
-    try {
-      localStorage.setItem(LANG_KEY, target);
-    } catch (e) {}
+    if (persist) {
+      try {
+        localStorage.setItem(LANG_KEY, target);
+      } catch (e) {}
+    }
 
     updateThemeButton();
   }
 
   function initThemeAndLang() {
-    let savedTheme = null;
+    const savedTheme = getSavedTheme();
+    if (savedTheme) {
+      applyTheme(savedTheme, true);
+    } else {
+      applyTheme(getEffectiveTheme(), false);
+    }
+
     let savedLang = null;
     try {
-      savedTheme = localStorage.getItem(THEME_KEY);
       savedLang = localStorage.getItem(LANG_KEY);
     } catch (e) {}
-
-    const initialTheme =
-      savedTheme === "dark" || savedTheme === "light"
-        ? savedTheme
-        : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-
-    applyTheme(initialTheme);
-    applyLang(savedLang === "es" ? "es" : "en");
+    applyLang(savedLang === "es" ? "es" : "en", false);
 
     const themeBtn = document.getElementById("theme-toggle");
     if (themeBtn) {
       themeBtn.addEventListener("click", () => {
-        applyTheme(getCurrentTheme() === "dark" ? "light" : "dark");
+        const next = getEffectiveTheme() === "dark" ? "light" : "dark";
+        applyTheme(next, true);
       });
+    }
+
+    if (darkMql) {
+      const onOsThemeChange = () => {
+        if (!getSavedTheme()) {
+          updateThemeButton();
+        }
+      };
+      if (typeof darkMql.addEventListener === "function") {
+        darkMql.addEventListener("change", onOsThemeChange);
+      } else if (typeof darkMql.addListener === "function") {
+        darkMql.addListener(onOsThemeChange);
+      }
     }
 
     document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const nextLang = btn.getAttribute("data-lang-btn");
-        if (nextLang) applyLang(nextLang);
+        if (nextLang) applyLang(nextLang, true);
       });
+    });
+  }
+
+  function initScrollProgress() {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+
+    let ticking = false;
+    function update() {
+      ticking = false;
+      const doc = document.documentElement;
+      const maxScroll = Math.max(0, doc.scrollHeight - window.innerHeight);
+      const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+      header.style.setProperty("--scroll-progress", ratio.toFixed(4));
+    }
+
+    function requestUpdate() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate, { passive: true });
+  }
+
+  function initActiveNav() {
+    const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    if (!links.length || typeof IntersectionObserver !== "function") return;
+
+    const pairs = links
+      .map((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const section = id ? document.getElementById(id) : null;
+        return section ? { link, section } : null;
+      })
+      .filter(Boolean);
+
+    if (!pairs.length) return;
+
+    const setActive = (activeLink) => {
+      links.forEach((l) => l.classList.toggle("is-active", l === activeLink));
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length) {
+          const match = pairs.find((p) => p.section === visible[0].target);
+          if (match) setActive(match.link);
+        }
+      },
+      { rootMargin: "-22% 0px -58% 0px", threshold: [0.05, 0.25, 0.5] }
+    );
+
+    pairs.forEach((p) => observer.observe(p.section));
+  }
+
+  function initScrollReveal() {
+    if (
+      (reducedMotionMql && reducedMotionMql.matches) ||
+      typeof IntersectionObserver !== "function"
+    ) {
+      return;
+    }
+
+    const targets = Array.from(
+      document.querySelectorAll(
+        ".kpi-card, .spotlight-card, .project-card, .exp-card, .skill-card, .panel-card, .contact-card, .doc-card"
+      )
+    );
+    if (!targets.length) return;
+
+    root.classList.add("js-motion");
+
+    targets.forEach((el, idx) => {
+      el.classList.add("js-reveal");
+      const delay = (idx % 4) * 55;
+      el.style.setProperty("--reveal-delay", delay + "ms");
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.96) {
+        el.classList.add("is-visible");
+      }
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -30px 0px", threshold: 0.04 }
+    );
+
+    targets.forEach((el) => {
+      if (!el.classList.contains("is-visible")) {
+        observer.observe(el);
+      }
     });
   }
 
@@ -180,6 +313,9 @@
           const cats = (card.getAttribute("data-categories") || "").split(/\s+/);
           const visible = filter === "all" || cats.includes(filter);
           card.classList.toggle("is-hidden", !visible);
+          if (visible) {
+            card.classList.add("is-visible");
+          }
         });
       });
     });
@@ -261,6 +397,9 @@
   }
 
   initThemeAndLang();
+  initScrollProgress();
+  initActiveNav();
+  initScrollReveal();
   initMobileMenu();
   initProjectFilters();
   initCopyEmail();
