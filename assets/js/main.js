@@ -2,8 +2,9 @@
    Main Interactive Behavior — Juan Manuel Rossi 2027 Portfolio
    System-first theme (prefers-color-scheme) + persistent manual override,
    bilingual EN/ES switch, live Buenos Aires ART clock, scroll progress line,
-   active nav tracking, subtle metric counters, progressive reveals,
-   mobile drawer, project filters, copy email, and native <dialog> lightbox.
+   active nav tracking (with aria-current="location"), metric counters,
+   progressive reveals, mobile drawer, project filters with live region,
+   desktop hover preview, executive brief modal, copy email, and lightbox.
    ========================================================================== */
 (function () {
   "use strict";
@@ -15,6 +16,8 @@
   const reducedMotionMql = window.matchMedia
     ? window.matchMedia("(prefers-reduced-motion: reduce)")
     : null;
+
+  let activeBriefId = null;
 
   const SUN_SVG =
     '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
@@ -87,6 +90,24 @@
     updateThemeButton();
   }
 
+  function renderBriefContent(id) {
+    if (!id) return;
+    const dict = getDict(getCurrentLang());
+    const prefix = "brief." + id + ".";
+    const titleEl = document.getElementById("brief-title");
+    const metaEl = document.getElementById("brief-meta");
+    const ctxEl = document.getElementById("brief-ctx");
+    const archEl = document.getElementById("brief-arch");
+    const outEl = document.getElementById("brief-out");
+    const stackEl = document.getElementById("brief-stack");
+    if (titleEl) titleEl.textContent = dict[prefix + "title"] || "";
+    if (metaEl) metaEl.textContent = dict[prefix + "meta"] || "";
+    if (ctxEl) ctxEl.textContent = dict[prefix + "ctx"] || "";
+    if (archEl) archEl.textContent = dict[prefix + "arch"] || "";
+    if (outEl) outEl.textContent = dict[prefix + "out"] || "";
+    if (stackEl) stackEl.textContent = dict[prefix + "stack"] || "";
+  }
+
   function applyLang(lang, persist) {
     const target = lang === "es" ? "es" : "en";
     const dict = getDict(target);
@@ -120,6 +141,10 @@
       try {
         localStorage.setItem(LANG_KEY, target);
       } catch (e) {}
+    }
+
+    if (activeBriefId) {
+      renderBriefContent(activeBriefId);
     }
 
     updateThemeButton();
@@ -230,7 +255,15 @@
     if (!pairs.length) return;
 
     const setActive = (activeLink) => {
-      links.forEach((l) => l.classList.toggle("is-active", l === activeLink));
+      links.forEach((l) => {
+        const isCurrent = l === activeLink;
+        l.classList.toggle("is-active", isCurrent);
+        if (isCurrent) {
+          l.setAttribute("aria-current", "location");
+        } else {
+          l.removeAttribute("aria-current");
+        }
+      });
     };
 
     const observer = new IntersectionObserver(
@@ -339,6 +372,30 @@
         observer.observe(el);
       }
     });
+
+    let revealRaf = 0;
+    function revealVisibleOnJump() {
+      revealRaf = 0;
+      const thresholdY = window.innerHeight * 1.05;
+      targets.forEach((el) => {
+        if (el.classList.contains("is-visible")) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top < thresholdY) {
+          el.classList.add("is-visible");
+          observer.unobserve(el);
+        }
+      });
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!revealRaf) {
+          revealRaf = window.requestAnimationFrame(revealVisibleOnJump);
+        }
+      },
+      { passive: true }
+    );
   }
 
   function initMobileMenu() {
@@ -378,21 +435,130 @@
   function initProjectFilters() {
     const buttons = Array.from(document.querySelectorAll("[data-project-filter]"));
     const rows = Array.from(document.querySelectorAll(".work-row"));
+    const statusEl = document.getElementById("filter-status");
     if (!buttons.length || !rows.length) return;
 
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const filter = btn.getAttribute("data-project-filter") || "all";
         buttons.forEach((b) => b.setAttribute("aria-pressed", b === btn ? "true" : "false"));
+        let count = 0;
         rows.forEach((row) => {
           const cats = (row.getAttribute("data-categories") || "").split(/\s+/);
           const visible = filter === "all" || cats.includes(filter);
           row.classList.toggle("is-hidden", !visible);
           if (visible) {
             row.classList.add("is-visible");
+            count += 1;
           }
         });
+        if (statusEl) {
+          const dict = getDict(getCurrentLang());
+          const prefix = dict["proj.statusPrefix"] || "Showing";
+          const suffix = dict["proj.statusSuffix"] || "projects";
+          statusEl.textContent = prefix + " " + count + " " + suffix;
+        }
       });
+    });
+  }
+
+  function initWorkHoverPreview() {
+    const preview = document.getElementById("work-hover-preview");
+    const previewImg = document.getElementById("work-hover-img");
+    const previewCaption = document.getElementById("work-hover-caption");
+    if (!preview || !previewImg || !previewCaption) return;
+
+    const canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!canHover || (reducedMotionMql && reducedMotionMql.matches)) return;
+
+    const rows = Array.from(document.querySelectorAll(".work-row[data-preview-src]"));
+    if (!rows.length) return;
+
+    let rafId = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    function applyPos() {
+      rafId = 0;
+      const w = 312;
+      const h = 250;
+      const clampedX = Math.min(window.innerWidth - w - 18, Math.max(18, targetX + 20));
+      const clampedY = Math.min(window.innerHeight - h - 18, Math.max(82, targetY - 60));
+      preview.style.setProperty("--preview-x", clampedX + "px");
+      preview.style.setProperty("--preview-y", clampedY + "px");
+    }
+
+    rows.forEach((row) => {
+      row.addEventListener("mouseenter", (e) => {
+        const src = row.getAttribute("data-preview-src");
+        const titleEl = row.querySelector("h3");
+        if (!src) return;
+        previewImg.src = src;
+        previewImg.alt = titleEl ? titleEl.textContent : "";
+        previewCaption.textContent = titleEl ? titleEl.textContent : "";
+        targetX = e.clientX;
+        targetY = e.clientY;
+        applyPos();
+        preview.classList.add("is-active");
+      });
+
+      row.addEventListener("mousemove", (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!rafId) {
+          rafId = window.requestAnimationFrame(applyPos);
+        }
+      });
+
+      row.addEventListener("mouseleave", () => {
+        preview.classList.remove("is-active");
+      });
+    });
+  }
+
+  function initExecutiveBriefs() {
+    const dialog = document.getElementById("brief-modal");
+    const closeBtn = document.getElementById("brief-close");
+    const ctaLink = document.getElementById("brief-cta");
+    if (!dialog) return;
+
+    let lastTrigger = null;
+
+    document.querySelectorAll(".brief-trigger[data-brief-id]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const id = trigger.getAttribute("data-brief-id");
+        if (!id) return;
+        lastTrigger = trigger;
+        activeBriefId = id;
+        renderBriefContent(id);
+        if (typeof dialog.showModal === "function") {
+          dialog.showModal();
+        }
+      });
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => dialog.close());
+    }
+
+    if (ctaLink) {
+      ctaLink.addEventListener("click", () => {
+        dialog.close();
+      });
+    }
+
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) {
+        dialog.close();
+      }
+    });
+
+    dialog.addEventListener("close", () => {
+      activeBriefId = null;
+      if (lastTrigger && typeof lastTrigger.focus === "function") {
+        lastTrigger.focus();
+      }
+      lastTrigger = null;
     });
   }
 
@@ -432,6 +598,8 @@
     const closeBtn = document.getElementById("lightbox-close");
     if (!dialog || !imgEl || !titleEl) return;
 
+    let lastTrigger = null;
+
     document.querySelectorAll("[data-lightbox-src]").forEach((trigger) => {
       trigger.addEventListener("click", () => {
         const src = trigger.getAttribute("data-lightbox-src");
@@ -440,6 +608,7 @@
         const dict = getDict(getCurrentLang());
         const caption = (capKey && dict[capKey]) || trigger.getAttribute("data-lightbox-title") || alt;
 
+        lastTrigger = trigger;
         imgEl.src = src;
         imgEl.alt = alt;
         titleEl.textContent = caption;
@@ -462,6 +631,10 @@
 
     dialog.addEventListener("close", () => {
       imgEl.removeAttribute("src");
+      if (lastTrigger && typeof lastTrigger.focus === "function") {
+        lastTrigger.focus();
+      }
+      lastTrigger = null;
     });
   }
 
@@ -479,6 +652,8 @@
   initScrollReveal();
   initMobileMenu();
   initProjectFilters();
+  initWorkHoverPreview();
+  initExecutiveBriefs();
   initCopyEmail();
   initLightbox();
   initPrintButton();

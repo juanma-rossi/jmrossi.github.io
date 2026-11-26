@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Kaijo AI SaaS architectural plate">
+  <rect width="640" height="400" fill="#0D111B"/>
+  <path d="M0 80H640 M0 320H640 M56 0V400 M584 0V400" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <rect x="56" y="80" width="528" height="240" fill="rgba(123,156,226,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <line x1="88" y1="126" x2="128" y2="126" stroke="#7B9CE2" stroke-width="2"/>
+  <text x="142" y="131" fill="#7B9CE2" font-family="Consolas, monospace" font-size="14" font-weight="600" letter-spacing="2">01 · KAIJO AI SAAS</text>
+  <text x="88" y="196" fill="#F2F3F7" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="300" letter-spacing="-1">Multi-Tenant AI Platform</text>
+  <text x="88" y="236" fill="#A5AEBE" font-family="Consolas, monospace" font-size="15" letter-spacing="1.2">10+ MCP · FLY.IO FLEET · CLAUDE</text>
+  <line x1="88" y1="268" x2="552" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="88" y="294" fill="#838CA0" font-family="Consolas, monospace" font-size="13">AWS KMS · AUTH0 · OAUTH 2.0 + PKCE</text>
+</svg>
