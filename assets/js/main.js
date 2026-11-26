@@ -1,9 +1,9 @@
 /* ==========================================================================
    Main Interactive Behavior — Juan Manuel Rossi 2027 Portfolio
    System-first theme (prefers-color-scheme) + persistent manual override,
-   bilingual EN/ES switch, scroll progress hairline, active nav tracking,
-   progressive scroll reveals, mobile drawer, project filters, copy email,
-   and native <dialog> screenshot lightbox.
+   bilingual EN/ES switch, live Buenos Aires ART clock, scroll progress line,
+   active nav tracking, subtle metric counters, progressive reveals,
+   mobile drawer, project filters, copy email, and native <dialog> lightbox.
    ========================================================================== */
 (function () {
   "use strict";
@@ -17,7 +17,7 @@
     : null;
 
   const SUN_SVG =
-    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<circle cx="12" cy="12" r="5"></circle>' +
     '<line x1="12" y1="1" x2="12" y2="3"></line>' +
     '<line x1="12" y1="21" x2="12" y2="23"></line>' +
@@ -30,7 +30,7 @@
     "</svg>";
 
   const MOON_SVG =
-    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>' +
     "</svg>";
 
@@ -70,10 +70,17 @@
 
   function applyTheme(theme, persist) {
     if (persist) {
+      root.classList.add("theme-switching");
       root.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+      void root.offsetHeight;
       try {
         localStorage.setItem(THEME_KEY, theme === "dark" ? "dark" : "light");
       } catch (e) {}
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          root.classList.remove("theme-switching");
+        });
+      });
     } else {
       root.removeAttribute("data-theme");
     }
@@ -161,6 +168,28 @@
     });
   }
 
+  function initLocalClock() {
+    const el = document.querySelector("[data-ba-clock]");
+    if (!el) return;
+
+    function renderTime() {
+      try {
+        const fmt = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "America/Argentina/Buenos_Aires",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        });
+        el.textContent = fmt.format(new Date()) + " ART";
+      } catch (e) {
+        el.textContent = "ART";
+      }
+    }
+
+    renderTime();
+    window.setInterval(renderTime, 30000);
+  }
+
   function initScrollProgress() {
     const header = document.querySelector(".site-header");
     if (!header) return;
@@ -220,6 +249,52 @@
     pairs.forEach((p) => observer.observe(p.section));
   }
 
+  function initMetricCounters() {
+    const nodes = Array.from(document.querySelectorAll("[data-count-to]"));
+    if (!nodes.length) return;
+    if (
+      (reducedMotionMql && reducedMotionMql.matches) ||
+      typeof IntersectionObserver !== "function"
+    ) {
+      return;
+    }
+
+    const animateNode = (el) => {
+      const target = parseInt(el.getAttribute("data-count-to"), 10);
+      if (Number.isNaN(target) || target <= 0) return;
+      const suffix = el.getAttribute("data-count-suffix") || "";
+      const duration = 680;
+      const start = performance.now();
+
+      function tick(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const current = Math.max(1, Math.round(eased * target));
+        el.textContent = current + suffix;
+        if (t < 1) {
+          window.requestAnimationFrame(tick);
+        } else {
+          el.textContent = target + suffix;
+        }
+      }
+      window.requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateNode(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    nodes.forEach((el) => observer.observe(el));
+  }
+
   function initScrollReveal() {
     if (
       (reducedMotionMql && reducedMotionMql.matches) ||
@@ -230,7 +305,7 @@
 
     const targets = Array.from(
       document.querySelectorAll(
-        ".kpi-card, .spotlight-card, .project-card, .exp-card, .skill-card, .panel-card, .contact-card, .doc-card"
+        ".track-cell, .flagship-spread, .work-row, .exp-entry, .spec-row, .cred-row, .contact-panel, .arch-block, .doc-card"
       )
     );
     if (!targets.length) return;
@@ -239,10 +314,10 @@
 
     targets.forEach((el, idx) => {
       el.classList.add("js-reveal");
-      const delay = (idx % 4) * 55;
+      const delay = (idx % 3) * 30;
       el.style.setProperty("--reveal-delay", delay + "ms");
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.96) {
+      if (rect.top < window.innerHeight * 0.98) {
         el.classList.add("is-visible");
       }
     });
@@ -256,7 +331,7 @@
           }
         });
       },
-      { rootMargin: "0px 0px -30px 0px", threshold: 0.04 }
+      { rootMargin: "120px 0px 120px 0px", threshold: 0.01 }
     );
 
     targets.forEach((el) => {
@@ -302,19 +377,19 @@
 
   function initProjectFilters() {
     const buttons = Array.from(document.querySelectorAll("[data-project-filter]"));
-    const cards = Array.from(document.querySelectorAll(".project-card"));
-    if (!buttons.length || !cards.length) return;
+    const rows = Array.from(document.querySelectorAll(".work-row"));
+    if (!buttons.length || !rows.length) return;
 
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const filter = btn.getAttribute("data-project-filter") || "all";
         buttons.forEach((b) => b.setAttribute("aria-pressed", b === btn ? "true" : "false"));
-        cards.forEach((card) => {
-          const cats = (card.getAttribute("data-categories") || "").split(/\s+/);
+        rows.forEach((row) => {
+          const cats = (row.getAttribute("data-categories") || "").split(/\s+/);
           const visible = filter === "all" || cats.includes(filter);
-          card.classList.toggle("is-hidden", !visible);
+          row.classList.toggle("is-hidden", !visible);
           if (visible) {
-            card.classList.add("is-visible");
+            row.classList.add("is-visible");
           }
         });
       });
@@ -397,8 +472,10 @@
   }
 
   initThemeAndLang();
+  initLocalClock();
   initScrollProgress();
   initActiveNav();
+  initMetricCounters();
   initScrollReveal();
   initMobileMenu();
   initProjectFilters();

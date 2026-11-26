@@ -6,12 +6,12 @@
   <title>Cars Intelligence 2025 — Case Study | Juan Manuel Rossi</title>
   <meta name="description" content="Engineering case study for Cars Intelligence 2025: 1,214 audited vehicles, 71 DAX measures, log-linear hedonic fair-price regression, PBIP/TMDL star schema, Power BI MCP CI validation, and interactive web studio.">
   <meta property="og:title" content="Cars Intelligence 2025 — Case Study | Juan Manuel Rossi">
-  <meta property="og:description" content="5-page Full HD Power BI PBIP/TMDL semantic model + Light Editorial web studio with 322 automated tests.">
+  <meta property="og:description" content="5-page Full HD Power BI PBIP/TMDL semantic model + interactive web studio with 322 automated tests.">
   <meta property="og:image" content="../../assets/img/projects/cars-2025/html-portal-preview.png">
   <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
     (function () {
       try {
@@ -32,8 +32,8 @@
   <header class="site-header">
     <div class="container nav-inner">
       <a class="brand" href="../../index.html">
-        <span class="brand-mark" aria-hidden="true">JR</span>
-        <span>Juan Manuel Rossi</span>
+        <span class="brand-full">Juan Manuel Rossi</span>
+        <span class="brand-short" aria-hidden="true">JMR</span>
       </a>
 
       <div class="nav-actions">
@@ -45,7 +45,7 @@
         <button id="theme-toggle" class="control-btn" type="button" aria-pressed="false" aria-label="Toggle light or dark color theme" data-i18n-aria="theme.aria">
           <span>Dark</span>
         </button>
-        <a class="btn btn-primary btn-sm nav-resume-btn" href="../../resume.html" data-i18n="nav.resume">Resume / CV</a>
+        <a class="btn btn-primary btn-sm nav-resume-btn" href="../../resume.html" data-i18n="nav.resume">CV →</a>
       </div>
     </div>
   </header>
@@ -60,48 +60,44 @@
           <span data-i18n="cars.crumbCurrent">Cars Intelligence 2025</span>
         </nav>
 
-        <span class="section-kicker" data-i18n="cars.kicker">Featured BI, Econometrics &amp; Automation Case Study</span>
-        <h1 data-i18n="cars.title">Cars Intelligence 2025</h1>
-        <p class="hero-summary" data-i18n="cars.lead">
-          Transforming raw, noisy 2025 automotive specifications into an executive-grade market &amp; performance intelligence platform: a 5-page Full HD Power BI PBIP/TMDL semantic model, log-linear hedonic fair-price econometrics, a Light Editorial interactive HTML portal, and 322 automated CI tests.
-        </p>
+        <span class="section-eyebrow" data-i18n="cars.kicker">Featured BI, Econometrics &amp; Automation Case Study</span>
+        <h1 class="hero-display" data-i18n="cars.title">Cars Intelligence 2025</h1>
 
-        <div class="stack-row">
-          <span class="tag">Power BI (PBIP / PBIR / TMDL)</span>
-          <span class="tag">DAX (71 Measures)</span>
-          <span class="tag">Power Query (M)</span>
-          <span class="tag">Hedonic Regression</span>
-          <span class="tag">Python + pytest (322 tests)</span>
-          <span class="tag">Power BI Modeling MCP</span>
-          <span class="tag">GitHub Actions CI</span>
-          <span class="tag">Light / Dark HTML Studio</span>
+        <div class="hero-rule">
+          <p class="hero-summary" data-i18n="cars.lead">
+            Transforming raw, noisy 2025 automotive specifications into an executive-grade market &amp; performance intelligence platform: a 5-page Full HD Power BI PBIP/TMDL semantic model, log-linear hedonic fair-price econometrics, an interactive HTML portal, and 322 automated CI tests.
+          </p>
+
+          <p class="flagship-stack">
+            Power BI (PBIP / PBIR / TMDL) · DAX (71 Measures) · Power Query (M) · Hedonic Regression · Python + pytest (322 tests) · Power BI Modeling MCP · GitHub Actions CI
+          </p>
+
+          <div class="hero-cta-row">
+            <a class="btn btn-primary" href="./demo.html" data-i18n="cars.btnPortal">Launch Live Interactive Portal ↗</a>
+            <a class="btn" href="https://github.com/juanma-rossi/cars-intelligence-2025" target="_blank" rel="noopener noreferrer" data-i18n="cars.btnRepo">GitHub Repository ↗</a>
+          </div>
         </div>
 
-        <div class="hero-cta-row">
-          <a class="btn btn-primary" href="./demo.html" data-i18n="cars.btnPortal">Launch Live Interactive Portal</a>
-          <a class="btn" href="https://github.com/juanma-rossi/cars-intelligence-2025" target="_blank" rel="noopener noreferrer" data-i18n="cars.btnRepo">Explore GitHub Repository</a>
-        </div>
-
-        <div class="kpi-strip">
-          <div class="kpi-card" style="--kpi-accent: var(--accent);">
-            <div class="kpi-value tabular" data-i18n="cars.k1Val">1,214</div>
-            <div class="kpi-label" data-i18n="cars.k1Lbl">Audited Unique Vehicles</div>
-            <div class="kpi-sub" data-i18n="cars.k1Sub">Deduplicated from 1,218 raw rows (0 key collisions)</div>
+        <div class="track-strip">
+          <div class="track-cell">
+            <div class="track-val tabular" data-i18n="cars.k1Val">1,214</div>
+            <div class="track-label" data-i18n="cars.k1Lbl">Audited Unique Vehicles</div>
+            <div class="track-sub" data-i18n="cars.k1Sub">Deduplicated from 1,218 raw rows (0 key collisions)</div>
           </div>
-          <div class="kpi-card" style="--kpi-accent: var(--cyan);">
-            <div class="kpi-value tabular" data-i18n="cars.k2Val">32 OEMs · 15.8%</div>
-            <div class="kpi-label" data-i18n="cars.k2Lbl">Manufacturer &amp; EV Coverage</div>
-            <div class="kpi-sub" data-i18n="cars.k2Sub">192 electrified models · $42,795 USD median price</div>
+          <div class="track-cell">
+            <div class="track-val tabular" data-i18n="cars.k2Val">32 OEMs</div>
+            <div class="track-label" data-i18n="cars.k2Lbl">Manufacturer &amp; EV Coverage</div>
+            <div class="track-sub" data-i18n="cars.k2Sub">15.8% electrified (192 models) · $42,795 USD median</div>
           </div>
-          <div class="kpi-card" style="--kpi-accent: var(--emerald-bright);">
-            <div class="kpi-value tabular" data-i18n="cars.k3Val">459 Gems</div>
-            <div class="kpi-label" data-i18n="cars.k3Lbl">Hedonic Value Opportunities</div>
-            <div class="kpi-sub" data-i18n="cars.k3Sub">Actual price &lt;= -15% vs log-linear Fair Price</div>
+          <div class="track-cell">
+            <div class="track-val tabular" data-i18n="cars.k3Val">459</div>
+            <div class="track-label" data-i18n="cars.k3Lbl">Hedonic Value Opportunities</div>
+            <div class="track-sub" data-i18n="cars.k3Sub">Actual price &lt;= -15% vs log-linear Fair Price</div>
           </div>
-          <div class="kpi-card" style="--kpi-accent: var(--amber);">
-            <div class="kpi-value tabular" data-i18n="cars.k4Val">71 DAX · 322 Tests</div>
-            <div class="kpi-label" data-i18n="cars.k4Lbl">Engineered Quality Gates</div>
-            <div class="kpi-sub" data-i18n="cars.k4Sub">55 PBIR checks + Power BI MCP CI pipeline</div>
+          <div class="track-cell">
+            <div class="track-val tabular" data-i18n="cars.k4Val">71 / 322</div>
+            <div class="track-label" data-i18n="cars.k4Lbl">DAX Measures &amp; CI Tests</div>
+            <div class="track-sub" data-i18n="cars.k4Sub">55 PBIR checks + Power BI MCP CI pipeline</div>
           </div>
         </div>
       </div>
@@ -110,32 +106,33 @@
     <!-- Visual Showcase Gallery -->
     <section class="section defer-render">
       <div class="container">
-        <div class="section-header">
+        <div class="section-head">
           <div>
-            <h2 class="section-title" data-i18n="cars.galTitle">Visual Showcase (Click any preview to expand)</h2>
-            <p class="section-lead" data-i18n="cars.galLead">Unified Light Editorial visual language (#F8FAFC / #FFFFFF) designed for instant readability across Power BI Desktop and web browsers, with full Dark Mode parity.</p>
+            <span class="section-eyebrow">01 / Interface</span>
+            <h2 class="section-title" data-i18n="cars.galTitle">Visual Showcase</h2>
+            <p class="section-lead" data-i18n="cars.galLead">Unified Light Editorial visual language (#F8FAFC / #FFFFFF) designed for instant readability across Power BI Desktop and web browsers, with full Dark Mode parity. Click any preview to expand.</p>
           </div>
         </div>
 
         <div class="gallery-3">
-          <button type="button" class="shot-thumb" data-lightbox-src="../../assets/img/projects/cars-2025/html-portal-preview.png" data-lightbox-alt="Cars Intelligence 2025 Portal Hero Preview" data-lightbox-title-key="flag.shot1Cap">
-            <img src="../../assets/img/projects/cars-2025/html-portal-preview.png" alt="Cars Intelligence 2025 Portal Hero Preview" loading="lazy" decoding="async">
+          <button type="button" class="shot-frame" data-lightbox-src="../../assets/img/projects/cars-2025/html-portal-preview.png" data-lightbox-alt="Cars Intelligence 2025 Portal Hero Preview" data-lightbox-title-key="flag.shot1Cap">
+            <img src="../../assets/img/projects/cars-2025/html-portal-preview.png" alt="Cars Intelligence 2025 Portal Hero Preview" decoding="async">
             <span class="shot-caption">
-              <span data-i18n="flag.shot1Cap">Unified Light Editorial Portal (#F8FAFC) &amp; KPIs</span>
+              <span data-i18n="flag.shot1Cap">Editorial Portal &amp; Verified KPIs</span>
               <span class="mono" data-i18n="flag.zoomHint">Expand</span>
             </span>
           </button>
 
-          <button type="button" class="shot-thumb" data-lightbox-src="../../assets/img/projects/cars-2025/html-modules-preview.png" data-lightbox-alt="Cars Intelligence 2025 BI Modules &amp; Star Schema Preview" data-lightbox-title-key="flag.shot2Cap">
-            <img src="../../assets/img/projects/cars-2025/html-modules-preview.png" alt="Cars Intelligence 2025 BI Modules &amp; Star Schema Preview" loading="lazy" decoding="async">
+          <button type="button" class="shot-frame" data-lightbox-src="../../assets/img/projects/cars-2025/html-modules-preview.png" data-lightbox-alt="Cars Intelligence 2025 BI Modules &amp; Star Schema Preview" data-lightbox-title-key="flag.shot2Cap">
+            <img src="../../assets/img/projects/cars-2025/html-modules-preview.png" alt="Cars Intelligence 2025 BI Modules &amp; Star Schema Preview" decoding="async">
             <span class="shot-caption">
               <span data-i18n="flag.shot2Cap">4 BI Modules &amp; Star Schema</span>
               <span class="mono" data-i18n="flag.zoomHint">Expand</span>
             </span>
           </button>
 
-          <button type="button" class="shot-thumb" data-lightbox-src="../../assets/img/projects/cars-2025/html-gallery-preview.png" data-lightbox-alt="Cars Intelligence 2025 Vehicle Showroom Preview" data-lightbox-title-key="flag.shot3Cap">
-            <img src="../../assets/img/projects/cars-2025/html-gallery-preview.png" alt="Cars Intelligence 2025 Vehicle Showroom Preview" loading="lazy" decoding="async">
+          <button type="button" class="shot-frame" data-lightbox-src="../../assets/img/projects/cars-2025/html-gallery-preview.png" data-lightbox-alt="Cars Intelligence 2025 Vehicle Showroom Preview" data-lightbox-title-key="flag.shot3Cap">
+            <img src="../../assets/img/projects/cars-2025/html-gallery-preview.png" alt="Cars Intelligence 2025 Vehicle Showroom Preview" decoding="async">
             <span class="shot-caption">
               <span data-i18n="flag.shot3Cap">Filterable 2025 Vehicle Showroom</span>
               <span class="mono" data-i18n="flag.zoomHint">Expand</span>
@@ -148,17 +145,18 @@
     <!-- Data Architecture & Deduplication -->
     <section class="section defer-render">
       <div class="container">
-        <div class="section-header">
+        <div class="section-head">
           <div>
+            <span class="section-eyebrow">02 / Semantic Model</span>
             <h2 class="section-title" data-i18n="cars.archTitle">Data Architecture &amp; Deduplication Audit</h2>
             <p class="section-lead" data-i18n="cars.archLead">Single-source Power Query M ingestion feeding a clean star schema stored in Git-friendly PBIP + TMDL plain-text format.</p>
           </div>
         </div>
 
         <div class="architecture-grid">
-          <div class="panel-card">
+          <div class="arch-block">
             <h3 data-i18n="cars.archCard1Title">Single-Source Star Schema (stg_Cars_Raw)</h3>
-            <p style="color: var(--text-secondary); margin-top: 0;" data-i18n="cars.archCard1Desc">
+            <p style="color: var(--ink-2); margin-top: 0;" data-i18n="cars.archCard1Desc">
               All dimensions, facts, and QA audit tables read from one parameterized Power Query staging query (pDataFolder), eliminating redundant CSV scans and ensuring full reproducibility upon cloning.
             </p>
             <pre class="schema-diagram">stg_Cars_Raw (Single CSV ingestion via pDataFolder)
@@ -171,9 +169,9 @@
   └── qa_*            (Audit &amp; collision checks)</pre>
           </div>
 
-          <div class="panel-card">
+          <div class="arch-block">
             <h3 data-i18n="cars.archCard2Title">Data Quality &amp; Natural-Key Audit Findings</h3>
-            <p style="color: var(--text-secondary); margin-top: 0;" data-i18n="cars.archCard2Desc">
+            <p style="color: var(--ink-2); margin-top: 0;" data-i18n="cars.archCard2Desc">
               Initial qa_Cars_Audit checks surfaced key collisions when using only Company + Car Name + Engine. Investigation revealed two distinct root causes resolved systematically:
             </p>
             <ul class="exp-bullets">
@@ -189,8 +187,9 @@
     <!-- 5-Page PBIR Budget -->
     <section class="section defer-render">
       <div class="container">
-        <div class="section-header">
+        <div class="section-head">
           <div>
+            <span class="section-eyebrow">03 / Report Layout</span>
             <h2 class="section-title" data-i18n="cars.pagesTitle">5-Page Full HD (1920×1080) PBIR Report &amp; Performance Budget</h2>
             <p class="section-lead" data-i18n="cars.pagesLead">Built strictly with native Power BI visuals (zero heavy custom SVG card overhead), keeping every page well under Microsoft's 20-visual performance ceiling.</p>
           </div>
@@ -246,8 +245,9 @@
     <!-- Engineering Verification & Docs -->
     <section class="section defer-render">
       <div class="container">
-        <div class="section-header">
+        <div class="section-head">
           <div>
+            <span class="section-eyebrow">04 / Quality Gates</span>
             <h2 class="section-title" data-i18n="cars.qaTitle">Automated Verification, MCP Validation &amp; Technical Docs</h2>
             <p class="section-lead" data-i18n="cars.qaLead">Every commit is gated by GitHub Actions running PBIR geometry/UTF-8 verification, Power BI Modeling MCP schema checks, and 322 pytest assertions.</p>
           </div>
@@ -276,12 +276,17 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <span data-i18n="footer.copy">© 2027 Juan Manuel Rossi · Buenos Aires, Argentina</span>
-      <div class="footer-links">
-        <a href="./demo.html" data-i18n="cars.btnPortal">Launch Live Interactive Portal</a>
-        <a href="../../index.html" data-i18n="nav.backPortfolio">← Portfolio</a>
-        <a href="../../resume.html" data-i18n="nav.resume">Resume / CV</a>
+    <div class="container">
+      <div class="footer-emblem-rule">
+        <span class="footer-monogram">JMR</span>
+      </div>
+      <div class="footer-inner">
+        <span data-i18n="footer.copy">© 2027 Juan Manuel Rossi · Buenos Aires, Argentina</span>
+        <div class="footer-links">
+          <a href="./demo.html" data-i18n="cars.btnPortal">Launch Live Interactive Portal ↗</a>
+          <a href="../../index.html" data-i18n="nav.backPortfolio">← Portfolio</a>
+          <a href="../../resume.html" data-i18n="nav.resumeFull">Resume / CV</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -289,7 +294,7 @@
   <dialog id="img-lightbox" class="lightbox" aria-labelledby="lightbox-title">
     <div class="lightbox-bar">
       <h3 id="lightbox-title" class="lightbox-title">Preview</h3>
-      <button id="lightbox-close" class="control-btn" type="button" data-i18n="lightbox.close">Close preview</button>
+      <button id="lightbox-close" class="control-btn" type="button" data-i18n="lightbox.close">Close</button>
     </div>
     <div class="lightbox-body">
       <img id="lightbox-img" alt="">
