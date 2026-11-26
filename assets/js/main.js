@@ -4,7 +4,7 @@
    bilingual EN/ES switch, live Buenos Aires ART clock, scroll progress line,
    active nav tracking (with aria-current="location"), metric counters,
    progressive reveals, mobile drawer, project filters with live region,
-   desktop hover preview, executive brief modal, copy email, and lightbox.
+   executive brief modal, copy email, and lightbox.
    ========================================================================== */
 (function () {
   "use strict";
@@ -462,60 +462,6 @@
     });
   }
 
-  function initWorkHoverPreview() {
-    const preview = document.getElementById("work-hover-preview");
-    const previewImg = document.getElementById("work-hover-img");
-    const previewCaption = document.getElementById("work-hover-caption");
-    if (!preview || !previewImg || !previewCaption) return;
-
-    const canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!canHover || (reducedMotionMql && reducedMotionMql.matches)) return;
-
-    const rows = Array.from(document.querySelectorAll(".work-row[data-preview-src]"));
-    if (!rows.length) return;
-
-    let rafId = 0;
-    let targetX = 0;
-    let targetY = 0;
-
-    function applyPos() {
-      rafId = 0;
-      const w = 312;
-      const h = 250;
-      const clampedX = Math.min(window.innerWidth - w - 18, Math.max(18, targetX + 20));
-      const clampedY = Math.min(window.innerHeight - h - 18, Math.max(82, targetY - 60));
-      preview.style.setProperty("--preview-x", clampedX + "px");
-      preview.style.setProperty("--preview-y", clampedY + "px");
-    }
-
-    rows.forEach((row) => {
-      row.addEventListener("mouseenter", (e) => {
-        const src = row.getAttribute("data-preview-src");
-        const titleEl = row.querySelector("h3");
-        if (!src) return;
-        previewImg.src = src;
-        previewImg.alt = titleEl ? titleEl.textContent : "";
-        previewCaption.textContent = titleEl ? titleEl.textContent : "";
-        targetX = e.clientX;
-        targetY = e.clientY;
-        applyPos();
-        preview.classList.add("is-active");
-      });
-
-      row.addEventListener("mousemove", (e) => {
-        targetX = e.clientX;
-        targetY = e.clientY;
-        if (!rafId) {
-          rafId = window.requestAnimationFrame(applyPos);
-        }
-      });
-
-      row.addEventListener("mouseleave", () => {
-        preview.classList.remove("is-active");
-      });
-    });
-  }
-
   function initExecutiveBriefs() {
     const dialog = document.getElementById("brief-modal");
     const closeBtn = document.getElementById("brief-close");
@@ -652,7 +598,6 @@
   initScrollReveal();
   initMobileMenu();
   initProjectFilters();
-  initWorkHoverPreview();
   initExecutiveBriefs();
   initCopyEmail();
   initLightbox();

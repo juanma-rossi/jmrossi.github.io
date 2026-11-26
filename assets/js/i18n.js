@@ -60,7 +60,7 @@
       "kpi.certSub": "Power BI Associate · DP-600 In Progress",
 
       // Flagship Spotlight: Cars Intelligence 2025
-      "flag.eyebrow": "01 / Flagship Project",
+      "flag.eyebrow": "04 / Flagship Project",
       "flag.heading": "Cars Intelligence 2025",
       "flag.badge1": "BI & Econometrics",
       "flag.badge2": "PBIP · TMDL · MCP · CI",
@@ -83,7 +83,7 @@
       "flag.zoomHint": "Expand",
 
       // Selected Work Index
-      "proj.eyebrow": "02 / Selected Work",
+      "proj.eyebrow": "05 / Selected Work",
       "proj.title": "Enterprise Engagements & Open Source",
       "proj.lead": "Confidential Microsoft BI programs and AI SaaS delivery alongside open-source analytics and machine learning repositories.",
       "proj.filterAria": "Filter selected projects by category",
@@ -159,7 +159,7 @@
       "brief.mbr.stack": "Stack: Microsoft Fabric · Power BI · DAX Studio · SQL · Python · R · Excel · PowerPoint",
 
       // Experience Section
-      "exp.eyebrow": "03 / Experience",
+      "exp.eyebrow": "01 / Experience",
       "exp.title": "Professional Experience",
       "exp.lead": "6+ years progressing from technical analytics and Microsoft regional BI reporting into machine learning quota workflows and full-stack AI product delivery.",
       "exp.resumeCta": "View Full Resume →",
@@ -194,7 +194,7 @@
       "exp.ns.r1.b1": "Built interactive reports, dashboards, and custom charts for operational data analysis and visualization alongside customer-focused after-sales technical support and warranty management.",
 
       // Capabilities Specification Matrix
-      "skills.eyebrow": "04 / Capabilities",
+      "skills.eyebrow": "02 / Capabilities",
       "skills.title": "Technical & Leadership Stack",
       "skills.lead": "Structured across business intelligence, data engineering, cloud security, program governance, and LLM agent delivery.",
       "skills.c1": "Data Analysis & BI",
@@ -209,7 +209,7 @@
       "skills.s5": "Anthropic Claude · LLM Agents · LangGraph · MCP Integrations · FastAPI · Flask · REST APIs · React",
 
       // Credentials Section
-      "cred.eyebrow": "05 / Qualifications",
+      "cred.eyebrow": "03 / Qualifications",
       "cred.title": "Certifications, Education & Languages",
       "cred.certsTitle": "Industry Certifications",
       "cred.c1Title": "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
@@ -387,7 +387,7 @@
       "kpi.certSub": "Power BI Associate · DP-600 en curso",
 
       // Flagship Spotlight: Cars Intelligence 2025
-      "flag.eyebrow": "01 / Proyecto Insignia",
+      "flag.eyebrow": "04 / Proyecto Insignia",
       "flag.heading": "Cars Intelligence 2025",
       "flag.badge1": "BI y Econometría",
       "flag.badge2": "PBIP · TMDL · MCP · CI",
@@ -410,7 +410,7 @@
       "flag.zoomHint": "Ampliar",
 
       // Selected Work Index
-      "proj.eyebrow": "02 / Trabajos Seleccionados",
+      "proj.eyebrow": "05 / Trabajos Seleccionados",
       "proj.title": "Proyectos Corporativos y Open Source",
       "proj.lead": "Programas corporativos de BI para Microsoft y delivery SaaS de IA junto con repositorios públicos de analítica y Machine Learning.",
       "proj.filterAria": "Filtrar proyectos por categoría",
@@ -486,7 +486,7 @@
       "brief.mbr.stack": "Stack: Microsoft Fabric · Power BI · DAX Studio · SQL · Python · R · Excel · PowerPoint",
 
       // Experience Section
-      "exp.eyebrow": "03 / Trayectoria",
+      "exp.eyebrow": "01 / Trayectoria",
       "exp.title": "Experiencia Laboral",
       "exp.lead": "Más de 6 años evolucionando desde analítica técnica y reportería regional para Microsoft hacia flujos de Machine Learning y liderazgo de producto en plataformas SaaS de IA.",
       "exp.resumeCta": "Ver CV Completo →",
@@ -521,7 +521,7 @@
       "exp.ns.r1.b1": "Construí reportes interactivos, tableros y gráficos personalizados para análisis y visualización de datos, junto con soporte técnico postventa y gestión de garantías orientada al cliente.",
 
       // Capabilities Specification Matrix
-      "skills.eyebrow": "04 / Capacidades",
+      "skills.eyebrow": "02 / Capacidades",
       "skills.title": "Stack Técnico y de Liderazgo",
       "skills.lead": "Capacidades integradas en Business Intelligence, ingeniería de datos, seguridad en la nube, gobierno de proyectos y sistemas con agentes LLM.",
       "skills.c1": "Análisis de Datos y BI",
@@ -536,7 +536,7 @@
       "skills.s5": "Anthropic Claude · Agentes LLM · LangGraph · Integraciones MCP · FastAPI · Flask · REST APIs · React",
 
       // Credentials Section
-      "cred.eyebrow": "05 / Avales",
+      "cred.eyebrow": "03 / Avales",
       "cred.title": "Certificaciones, Educación e Idiomas",
       "cred.certsTitle": "Certificaciones Oficiales",
       "cred.c1Title": "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
